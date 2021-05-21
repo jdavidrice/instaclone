@@ -22,8 +22,7 @@ export default function SignUp() {
     event.preventDefault();
 
     const usernameExists = await doesUsernameExist(username);
-    console.log('usernameExists', usernameExists);
-    if (!usernameExists.length) {
+    if (usernameExists.length) {
       try {
         const createdUserResult = await firebase
           .auth()
@@ -83,7 +82,7 @@ export default function SignUp() {
             <input
               aria-label="Enter your full name"
               type="text"
-              placeholder="Full Name"
+              placeholder="Full name"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setFullName(target.value)}
               value={fullName}
@@ -91,7 +90,7 @@ export default function SignUp() {
             <input
               aria-label="Enter your email address"
               type="text"
-              placeholder="Email Address"
+              placeholder="Email address"
               className="text-sm text-gray-base w-full mr-3 py-5 px-4 h-2 border border-gray-primary rounded mb-2"
               onChange={({ target }) => setEmailAddress(target.value)}
               value={emailAddress}
