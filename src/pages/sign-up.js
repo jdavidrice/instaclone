@@ -22,7 +22,7 @@ export default function SignUp() {
     event.preventDefault();
 
     const usernameExists = await doesUsernameExist(username);
-    if (usernameExists.length) {
+    if (!usernameExists.length) {
       try {
         const createdUserResult = await firebase
           .auth()
@@ -32,14 +32,18 @@ export default function SignUp() {
           displayName: username
         });
 
-        await firebase.firestore().collection('users').add({
-          userId: createdUserResult.user.uid,
-          username: username.toLowerCase(),
-          fullName,
-          emailAddress: emailAddress.toLowerCase(),
-          following: [],
-          dateCreated: Date.now()
-        });
+        await firebase
+          .firestore()
+          .collection('users')
+          .add({
+            userId: createdUserResult.user.uid,
+            username: username.toLowerCase(),
+            fullName,
+            emailAddress: emailAddress.toLowerCase(),
+            following: ['2'],
+            followers: [],
+            dateCreated: Date.now()
+          });
 
         history.push(ROUTES.DASHBOARD);
       } catch (error) {
@@ -49,6 +53,7 @@ export default function SignUp() {
         setError(error.message);
       }
     } else {
+      setUsername('');
       setError('That username is already taken. Please try another.');
     }
   };

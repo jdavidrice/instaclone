@@ -5,8 +5,8 @@ import UserContext from '../context/user';
 import * as ROUTES from '../constants/routes';
 
 export default function Header() {
-  const { firebase } = useContext(FirebaseContext);
   const { user } = useContext(UserContext);
+  const { firebase } = useContext(FirebaseContext);
 
   return (
     <header className="h-16 bg-white border-b border-gray-primary mb-8">
@@ -48,7 +48,31 @@ export default function Header() {
                       firebase.auth().signOut();
                     }
                   }}
-                />
+                >
+                  <svg
+                    className="w-8 mr-6 text-black-light cursor-pointer"
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
+                    />
+                  </svg>
+                </button>
+                <div className="flex items-center cursor-pointer">
+                  <Link to={`/p/${user.displayName}`}>
+                    <img
+                      className="rounded-full h-8 w-8 flex"
+                      src={`/images/avatars/${user.displayName}.jpg`}
+                      alt={`${user.displayName} profile`}
+                    />
+                  </Link>
+                </div>
               </>
             ) : (
               <></>
