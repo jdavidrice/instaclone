@@ -1,3 +1,4 @@
+import React from 'react';
 import User from './user';
 import Suggestions from './suggestions';
 import useUser from '../../hooks/use-user';
@@ -14,3 +15,5 @@ export default function Sidebar() {
     </div>
   );
 }
+
+Sidebar.whyDidYouRender = true;
