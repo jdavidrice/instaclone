@@ -1,4 +1,4 @@
-import { firebase } from '../lib/firebase';
+import { firebase, FieldValue } from '../lib/firebase';
 
 export async function doesUsernameExist(username) {
   const result = await firebase
@@ -27,4 +27,36 @@ export async function getSuggestedProfiles(userId, following) {
   return result.docs
     .map((user) => ({ ...user.data(), docId: user.id }))
     .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
+}
+
+export async function updateLoggedInUserFollowing(
+  loggedInUserDocId,
+  profileId,
+  isFollowingProfile
+) {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(loggedInUserDocId)
+    .update({
+      following: isFollowingProfile
+        ? FieldValue.arrayRemove(profileId)
+        : FieldValue.arrayUnion(profileId)
+    });
+}
+
+export async function updateFollowedUserFollowers(
+  profileDocId,
+  loggedInUserDocId,
+  isFollowingProfile
+) {
+  return firebase
+    .firestore()
+    .collection('users')
+    .doc(profileDocId)
+    .update({
+      followers: isFollowingProfile
+        ? FieldValue.arrayRemove(loggedInUserDocId)
+        : FieldValue.arrayUnion(loggedInUserDocId)
+    });
 }
