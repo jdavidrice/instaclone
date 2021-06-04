@@ -1,4 +1,4 @@
-import { useRef } from 'react-loading-skeleton';
+import { useRef } from 'react';
 import PropTypes from 'prop-types';
 import Header from './header';
 import Image from './image';
