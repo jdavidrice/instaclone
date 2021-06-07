@@ -1,9 +1,9 @@
 import { useReducer, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import Header from './header';
-import { getUserByUsername, getUserPhotosByUsername } from '../../services/firebase';
+import { getUserPhotosByUsername } from '../../services/firebase';
 
-export default function Profile({ username }) {
+export default function Profile({ user }) {
   const reducer = (state, newState) => ({ ...state, ...newState });
   const initialState = {
     profile: {},
@@ -18,24 +18,32 @@ export default function Profile({ username }) {
 
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
-      const [user] = await getUserByUsername(username);
-      const photos = getUserPhotosByUsername(username);
+      const photos = await getUserPhotosByUsername(user.username);
+      console.log('photos', photos);
 
       // dispatch({ profile: user, photosCollection: photos, followerCount: user.followers.length });
     }
-    if (username) {
+    if (user.username) {
       getProfileInfoAndPhotos();
     }
-  }, [username]);
+  }, [user.username]);
 
   return (
     <>
       <Header />
-      <p>Hello {username}</p>
+      <p>Hello {user.username}</p>
     </>
   );
 }
 
 Profile.propTypes = {
-  username: PropTypes.string.isRequired
+  user: PropTypes.shape({
+    dateCreated: PropTypes.number.isRequired,
+    emailAddress: PropTypes.string.isRequired,
+    followers: PropTypes.array.isRequired,
+    following: PropTypes.array.isRequired,
+    fullName: PropTypes.string.isRequired,
+    userId: PropTypes.string.isRequired,
+    username: PropTypes.string.isRequired
+  }).isRequired
 };
