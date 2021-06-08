@@ -8,7 +8,6 @@ import UserProfile from '../components/profile';
 export default function Profile() {
   const { username } = useParams();
   const [user, setUser] = useState(null);
-  const [userExists, setUserExists] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -16,7 +15,6 @@ export default function Profile() {
       const user = await getUserByUsername(username);
       if (user.length > 0) {
         setUser(user[0]);
-        setUserExists(true);
       } else {
         history.push(ROUTES.NOT_FOUND);
       }
@@ -24,7 +22,7 @@ export default function Profile() {
     checkUserExists();
   }, [username, history]);
 
-  return userExists ? (
+  return user?.username ? (
     <div className="bg-gray-background">
       <Header />
       <div className="mx-auto max-w-screen-lg">
