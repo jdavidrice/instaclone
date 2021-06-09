@@ -20,6 +20,7 @@ export default function Header({
   const { user } = useUser();
   const [isFollowingProfile, setIsFollowingProfile] = useState(false);
   const activeBtnFollow = user.username && user.username !== profileUsername;
+  const handleToggleFollow = () => 1;
 
   useEffect(() => {
     const isLoggedInUserFollowingProfile = async () => {
@@ -46,6 +47,15 @@ export default function Header({
       <div className="flex items-center justify-center flex-col col-span-2">
         <div className="container flex items-center">
           <p className="text-2xl mr-4">{profileUsername}</p>
+          {activeBtnFollow && (
+            <button
+              className="bg-blue-medium font-bold text-sm rounded text-white w-20 h-8"
+              type="button"
+              onClick={handleToggleFollow}
+            >
+              {isFollowingProfile ? 'Unfollow' : 'Follow'}
+            </button>
+          )}
         </div>
       </div>
     </div>
