@@ -7,6 +7,8 @@ import useAuthListener from './hooks/use-auth-listener';
 import ProtectedRoute from './helpers/protected-route';
 import IsUserLoggedIn from './helpers/is-user-logged-in';
 
+import Spinner from './components/spinner';
+
 const Login = lazy(() => import('./pages/login'));
 const SignUp = lazy(() => import('./pages/sign-up'));
 const Dashboard = lazy(() => import('./pages/dashboard'));
@@ -18,7 +20,7 @@ export default function App() {
   return (
     <UserContext.Provider value={{ user }}>
       <Router>
-        <Suspense fallback={<p>Loading...</p>}>
+        <Suspense fallback={<Spinner />}>
           <Switch>
             <IsUserLoggedIn user={user} loggedInPath={ROUTES.DASHBOARD} path={ROUTES.LOGIN}>
               <Login />
