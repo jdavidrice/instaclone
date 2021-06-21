@@ -19,6 +19,7 @@ export default function Profile() {
         history.push(ROUTES.NOT_FOUND);
       }
     }
+
     checkUserExists();
   }, [username, history]);
 

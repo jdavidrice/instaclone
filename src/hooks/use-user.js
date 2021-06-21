@@ -9,7 +9,6 @@ export default function useUser(userId) {
       const [user] = await getUserByUserId(userId);
       setActiveUser(user || {});
     }
-
     if (userId) {
       getUserObjByUserId(userId);
     }
