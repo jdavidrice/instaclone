@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { getUserByUserId } from '../services/firebase';
 
 export default function useUser(userId) {
+  console.log('userId', userId);
   const [activeUser, setActiveUser] = useState({});
 
   useEffect(() => {
