@@ -45,7 +45,7 @@ describe('<NotFound />', () => {
         </Router>
       );
       await waitFor(() => {
-        expect(queryByText("Login")).toBeTruthy();
+        expect(queryByText('Login')).toBeTruthy();
         expect(queryByText('Not Found!')).toBeTruthy();
       });
     });
