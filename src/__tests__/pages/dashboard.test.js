@@ -81,11 +81,11 @@ describe('<Dashboard />', () => {
         expect(getAllByText('Saint George and the Dragon')).toBeTruthy();
         expect(getByText('Suggestions for you')).toBeTruthy();
 
-        fireEvent.click(getByText('Follow'));
-        fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'));
-        fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'), {
-          key: 'Enter'
-        });
+        // fireEvent.click(getByText('Follow'));
+        // fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'));
+        // fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'), {
+        //   key: 'Enter'
+        // });
         // fireEvent.click(getByTestId('focus-input-494LKmaF03bUcYZ4xhNu'));
         // fireEvent.change(getByTestId('add-comment-MYv4fLT7DZpuFAkcZB'), {
         //   target: { value: 'Nice pic!' }
