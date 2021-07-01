@@ -43,10 +43,14 @@ describe('<Dashboard />', () => {
           }))
         }))
       };
+      const fieldValues = {
+        arrayUnion: jest.fn(),
+        arrayRemove: jest.fn()
+      };
 
-      const { getByText } = render(
+      const { getByText, getByTestId, getByTitle, getAllByText, getByAltText } = render(
         <Router>
-          <FirebaseContext.Provider value={firebase}>
+          <FirebaseContext.Provider value={{ firebase, fieldValues }}>
             <UserContext.Provider
               value={{
                 user: {
@@ -67,6 +71,27 @@ describe('<Dashboard />', () => {
           </FirebaseContext.Provider>
         </Router>
       );
+
+      await waitFor(() => {
+        expect(document.title).toEqual('Instagram');
+        expect(getByTitle('Sign Out')).toBeTruthy();
+        expect(getAllByText('brendan')).toBeTruthy();
+        expect(getByAltText('Instagram')).toBeTruthy();
+        expect(getByAltText('jeremy profile')).toBeTruthy();
+        expect(getAllByText('Saint George and the Dragon')).toBeTruthy();
+        expect(getByText('Suggestions for you')).toBeTruthy();
+
+        fireEvent.click(getByText('Follow'));
+        fireEvent.click(getByTestId('like-photo-MYv4fLT7DZpuFAkcZB3P'));
+        fireEvent.click(getByTestId('like-photo-MYv4fLT7DZpuFAkcZB3P'), {
+          key: 'Enter'
+        });
+        fireEvent.click(getByTestId('focus-input-MYv4fLT7DZpuFAkcZB3P'));
+        fireEvent.change(getByTestId('add-comment-MYv4fLT7DZpuFAkcZB'), {
+          target: { value: 'Nice pic!' }
+        });
+        fireEvent.submit(getByTestId('add-comment-submit-MYv4fLT7DZpuFAkcZ'));
+      });
     });
   });
 });
