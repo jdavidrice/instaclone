@@ -4,11 +4,11 @@ export default [
     photoId: 3,
     comments: [
       {
-        displayName: 'peter',
-        comment: 'Looks intense!'
+        displayName: 'dali',
+        comment: 'Love this place, looks like my animal farm!'
       },
       {
-        displayName: 'james',
+        displayName: 'orwell',
         comment: 'Would you mind if I used this picture?'
       }
     ],
@@ -32,10 +32,10 @@ export default [
     comments: [
       {
         comment: 'Love this place, looks like my animal farm!',
-        displayName: 'peter'
+        displayName: 'dali'
       },
       {
-        displayName: 'james',
+        displayName: 'orwell',
         comment: 'Would you mind if I used this picture?'
       }
     ],
@@ -52,12 +52,12 @@ export default [
     photoId: 4,
     comments: [
       {
-        displayName: 'peter',
+        displayName: 'dali',
         comment: 'Love this place, looks like my animal farm!'
       },
       {
         comment: 'Would you mind if I used this picture?',
-        displayName: 'james'
+        displayName: 'orwell'
       }
     ],
     caption: 'Saint George and the Dragon',
@@ -78,10 +78,10 @@ export default [
     comments: [
       {
         comment: 'Love this place, looks like my animal farm!',
-        displayName: 'peter'
+        displayName: 'dali'
       },
       {
-        displayName: 'james',
+        displayName: 'orwell',
         comment: 'Would you mind if I used this picture?'
       }
     ],
@@ -96,11 +96,11 @@ export default [
     comments: [
       {
         comment: 'Love this place, looks like my animal farm!',
-        displayName: 'peter'
+        displayName: 'dali'
       },
       {
         comment: 'Would you mind if I used this picture?',
-        displayName: 'james'
+        displayName: 'orwell'
       }
     ],
     userLatitude: '40.7128°',
