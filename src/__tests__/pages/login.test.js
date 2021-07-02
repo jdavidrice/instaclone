@@ -35,7 +35,7 @@ describe('<Login />', () => {
     );
 
     await act(async () => {
-      expect(document.title).toEqual('Login - Instagram');
+      expect(document.title).toEqual('Login - Instaclone');
 
       await fireEvent.change(getByPlaceholderText('Email address'), {
         target: { value: 'jdavidrice@gmail.com' }
@@ -81,7 +81,7 @@ describe('<Login />', () => {
       });
       fireEvent.submit(getByTestId('login'));
 
-      expect(document.title).toEqual('Login - Instagram');
+      expect(document.title).toEqual('Login - Instaclone');
       expect(failToLogin).toHaveBeenCalled();
       expect(failToLogin).toHaveBeenCalledWith('jdavidricegmail.com', 'password');
       expect(failToLogin).rejects.toThrow('Cannot sign in');

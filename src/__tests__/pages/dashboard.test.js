@@ -74,10 +74,10 @@ describe('<Dashboard />', () => {
       );
 
       await waitFor(() => {
-        expect(document.title).toEqual('Instagram');
+        expect(document.title).toEqual('Instaclone');
         expect(getByTitle('Sign Out')).toBeTruthy();
         expect(getAllByText('brendan')).toBeTruthy();
-        expect(getByAltText('Instagram')).toBeTruthy();
+        expect(getByAltText('Instaclone')).toBeTruthy();
         expect(getByAltText('jeremy profile')).toBeTruthy();
         expect(getAllByText('Saint George and the Dragon')).toBeTruthy();
         expect(getByText('Suggestions for you')).toBeTruthy();
