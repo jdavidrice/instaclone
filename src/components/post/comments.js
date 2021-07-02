@@ -33,7 +33,6 @@ export default function Comments({ docId, comments: allComments, posted, comment
     </>
   );
 }
-
 Comments.propTypes = {
   docId: PropTypes.string.isRequired,
   comments: PropTypes.array.isRequired,
