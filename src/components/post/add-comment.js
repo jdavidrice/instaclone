@@ -13,7 +13,7 @@ export default function AddComment({ docId, comments, setComments, commentInput 
   const handleSubmitComment = (event) => {
     event.preventDefault();
 
-    setComments([...comments, { displayName, comment }]);
+    setComments([{ displayName, comment }, ...comments]);
     setComment('');
 
     return firebase
