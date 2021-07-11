@@ -1,11 +1,8 @@
-<span align=center>
-
 # Instaclone 
 
 [![GitHub license](https://img.shields.io/github/license/jdavidrice/instaclone)](https://github.com/jdavidrice/instaclone/blob/master/LICENSE)
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/c1294f871fb947ee891b2895f1f7ee6f)](https://www.codacy.com/gh/jdavidrice/instaclone/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=jdavidrice/instaclone&amp;utm_campaign=Badge_Grade)
 
-</span>  
 An Instagram clone that uses React, Firebase, and Tailwind CSS.
 
 [Link to published website](https://instaclone-jdavidrice.vercel.app/login)
@@ -64,13 +61,14 @@ This application uses a .env file to store environment variables. After you fork
 
 ***Testing***
 This application incorporates the [Jest](https://jestjs.io/) JavaScript testing framework. To run the built-in unit tests, enter "npm test" into the console. 
+
 ## Image of the App   
   
 ![Instaclone](./public/images/instaclone.png)
  
 ## Credits
 
-Thank you to [freeCodeCamp](https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ) and [Karl Hadwen](https://github.com/karlhadwen) for the excellent YouTube video [Create an Instagram Clone with React, Tailwind CSS, Firebase - Tutorial](https://www.youtube.com/watch?v=mDgEqoQUBgk&t=4261s). This app is the result of watching the tutorial and building along with Karl. 
+Thank you to [freeCodeCamp](https://www.youtube.com/channel/UC8butISFwT-Wl7EV0hUK0BQ) and [Karl Hadwen](https://www.youtube.com/channel/UC1DUQiZduv_yNZy0O7n_iHA) for the excellent YouTube video [Create an Instagram Clone with React, Tailwind CSS, Firebase - Tutorial](https://www.youtube.com/watch?v=mDgEqoQUBgk&t=4261s). This app is the result of watching the tutorial and building along with Karl. 
 
 ## License  
 
@@ -97,8 +95,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
  
 ## Contact  
-GitHub: 
-[Jeremy Rice](https://github.com/jdavidrice)
+Portfolio: 
+[jeremyrice.gatsbyjs.io](https://jeremyrice.gatsbyjs.io/)
+
+LinkedIn:
+[Jeremy Rice](https://www.linkedin.com/in/jeremy-rice-b67a531b4/)
 
 Email:
 jdavidrice@gmail.com
