@@ -73,9 +73,13 @@ export default function SignUp() {
             <img src="/images/logo.png" alt="Instaclone" className="mt-2 w-6/12 mb-4" />
           </h1>
 
-          {error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
+          {error && (
+            <p className="mb-4 text-xs text-red-primary" data-testid="error">
+              {error}
+            </p>
+          )}
 
-          <form onSubmit={handleSignUp} method="POST">
+          <form onSubmit={handleSignUp} method="POST" data-testid="sign-up">
             <input
               aria-label="Enter your username"
               type="text"
@@ -121,7 +125,7 @@ export default function SignUp() {
         <div className="flex justify-center items-center flex-col w-full bg-white p-4  rounded border border-gray-primary">
           <p className="text-sm">
             Have an account?{` `}
-            <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium">
+            <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium" data-testid="login">
               Login
             </Link>
           </p>

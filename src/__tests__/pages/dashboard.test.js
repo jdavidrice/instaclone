@@ -120,19 +120,18 @@ describe('<Dashboard />', () => {
   //     getSuggestedProfiles.mockImplementation(() => suggestedProfilesFixture);
   //     useUser.mockImplementation(() => ({ user: undefined }));
 
-  //     const { getByText } = render(
+  //     const firebase = {
+  //       firestore: jest.fn(() => ({
+  //         collection: jest.fn(() => ({
+  //           doc: jest.fn(() => ({
+  //             update: jest.fn(() => Promise.resolve({}))
+  //           }))
+  //         }))
+  //       }))
+  //     };
+  //     const { getByText, queryByText } = render(
   //       <Router>
-  //         <FirebaseContext.Provider
-  //           value={{
-  //             firebase: {
-  //               auth: jest.fn(() => ({
-  //                 signOut: jest.fn(() => ({
-  //                   updateProfile: jest.fn(() => Promise.resolve({}))
-  //                 }))
-  //               }))
-  //             }
-  //           }}
-  //         >
+  //         <FirebaseContext.Provider value={{ firebase }}>
   //           <UserContext.Provider
   //             value={{
   //               user: {
@@ -156,6 +155,7 @@ describe('<Dashboard />', () => {
 
   //     expect(getByText('Login')).toBeTruthy();
   //     expect(getByText('Sign Up')).toBeTruthy();
+  //     expect(queryByText('Suggestions for you')).toBeFalsy();
   //   });
   // });
 
