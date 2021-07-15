@@ -120,19 +120,19 @@ export async function getPhotos(userId, following) {
   return photosWithUserDetails;
 }
 
-// export async function getUserPhotosByUsername(username) {
-//   const [user] = await getUserByUsername(username);
-//   const result = await firebase
-//     .firestore()
-//     .collection('photos')
-//     .where('userId', '==', user.userId)
-//     .get();
+export async function getUserPhotosByUsername(username) {
+  const [user] = await getUserByUsername(username);
+  const result = await firebase
+    .firestore()
+    .collection('photos')
+    .where('userId', '==', user.userId)
+    .get();
 
-//   return result.docs.map((item) => ({
-//     ...item.data(),
-//     docId: item.id
-//   }));
-// }
+  return result.docs.map((item) => ({
+    ...item.data(),
+    docId: item.id
+  }));
+}
 
 export async function getUserPhotosByUserId(userId) {
   const result = await firebase
