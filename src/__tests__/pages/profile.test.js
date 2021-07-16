@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, waitFor, fireEvent } from '@testing-library/react';
+import { render, waitFor, fireEvent, screen } from '@testing-library/react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import { act } from 'react-dom/test-utils';
 import Profile from '../../pages/profile';
@@ -21,7 +21,7 @@ import photosFixture from '../../fixtures/timeline-photos';
 const mockHistoryPush = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useParams: () => ({ username: 'jeremy' }),
+  useParams: () => ({ username: 'peter' }),
   useHistory: () => ({
     push: mockHistoryPush
   })
@@ -70,11 +70,39 @@ describe('<Profile />', () => {
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalledWith(ROUTES.NOT_FOUND);
         expect(getUserByUsername).toHaveBeenCalled();
-        expect(getUserByUsername).toHaveBeenCalledWith('jeremy');
+        expect(getUserByUsername).toHaveBeenCalledWith('peter');
         expect(getByTitle('Sign Out')).toBeTruthy();
         expect(getByText('jeremy')).toBeTruthy();
         expect(getByText('Jeremy Rice')).toBeTruthy();
+
+        screen.getByText((content, node) => {
+          const hasText = (node) => node.textContent === '0 photos';
+          const nodeHasText = hasText(node);
+          const childrenDontHaveText = Array.from(node.children).every((child) => !hasText(child));
+          return nodeHasText && childrenDontHaveText;
+        });
+
+        screen.getByText((content, node) => {
+          const hasText = (node) => node.textContent === '3 followers';
+          const nodeHasText = hasText(node);
+          const childrenDontHaveText = Array.from(node.children).every((child) => !hasText(child));
+          return nodeHasText && childrenDontHaveText;
+        });
+
+        screen.getByText((content, node) => {
+          const hasText = (node) => node.textContent === '1 following';
+          const nodeHasText = hasText(node);
+          const childrenDontHaveText = Array.from(node.children).every((child) => !hasText(child));
+          return nodeHasText && childrenDontHaveText;
+        });
       });
+
+      // sign user out
+      fireEvent.click(getByTitle('Sign Out'));
+      fireEvent.keyDown(getByTitle('Sign Out'), {
+        key: 'Enter'
+      });
+      expect(mockHistoryPush).toHaveBeenCalledWith(ROUTES.LOGIN);
     });
   });
 });

@@ -377,7 +377,7 @@ body {
   box-sizing: border-box; /* 1 */
   border-width: 0; /* 2 */
   border-style: solid; /* 2 */
-  border-color: currentColor; /* 2 */
+  border-color: #e5e7eb; /* 2 */
 }
 
 /*
@@ -409,7 +409,7 @@ textarea {
 input::placeholder,
 textarea::placeholder {
   opacity: 1;
-  color: #a1a1aa;
+  color: #9ca3af;
 }
 
 button {
@@ -539,23 +539,28 @@ video {
   }
 }
 
+.bg-black-faded {
+  background-color: #00000059;
+}
+
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgba(255, 255, 255, var(--tw-bg-opacity));
 }
 
-.bg-blue-medium {
+.bg-gray-200 {
   --tw-bg-opacity: 1;
-  background-color: rgba(0, 92, 152, var(--tw-bg-opacity));
-}
-
-.bg-black-faded {
-  background-color: #00000059;
+  background-color: rgba(229, 231, 235, var(--tw-bg-opacity));
 }
 
 .bg-gray-background {
   --tw-bg-opacity: 1;
   background-color: rgba(250, 250, 250, var(--tw-bg-opacity));
+}
+
+.bg-blue-medium {
+  --tw-bg-opacity: 1;
+  background-color: rgba(0, 92, 152, var(--tw-bg-opacity));
 }
 
 .border-gray-primary {
@@ -682,6 +687,10 @@ video {
   line-height: 2rem;
 }
 
+.m-auto {
+  margin: auto;
+}
+
 .mx-auto {
   margin-left: auto;
   margin-right: auto;
@@ -749,6 +758,10 @@ video {
 
 .mb-12 {
   margin-bottom: 3rem;
+}
+
+.max-w-md {
+  max-width: 28rem;
 }
 
 .max-w-screen-md {
@@ -857,19 +870,19 @@ video {
   text-align: center;
 }
 
+.text-black-light {
+  --tw-text-opacity: 1;
+  color: rgba(38, 38, 38, var(--tw-text-opacity));
+}
+
 .text-white {
   --tw-text-opacity: 1;
   color: rgba(255, 255, 255, var(--tw-text-opacity));
 }
 
-.text-blue-medium {
+.text-gray-700 {
   --tw-text-opacity: 1;
-  color: rgba(0, 92, 152, var(--tw-text-opacity));
-}
-
-.text-black-light {
-  --tw-text-opacity: 1;
-  color: rgba(38, 38, 38, var(--tw-text-opacity));
+  color: rgba(55, 65, 81, var(--tw-text-opacity));
 }
 
 .text-gray-base {
@@ -880,6 +893,11 @@ video {
 .text-red-primary {
   --tw-text-opacity: 1;
   color: rgba(237, 73, 86, var(--tw-text-opacity));
+}
+
+.text-blue-medium {
+  --tw-text-opacity: 1;
+  color: rgba(0, 92, 152, var(--tw-text-opacity));
 }
 
 .uppercase {
@@ -1018,6 +1036,26 @@ video {
 }
 
 @media (min-width: 1024px) {
+  .lg\:flex {
+    display: flex;
+  }
+
+  .lg\:flex-row {
+    flex-direction: row;
+  }
+
+  .lg\:px-0 {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+
+  .lg\:w-2\/5 {
+    width: 40%;
+  }
+
+  .lg\:w-3\/5 {
+    width: 60%;
+  }
 }
 
 @media (min-width: 1280px) {
