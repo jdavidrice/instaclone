@@ -5,23 +5,23 @@ import { act } from 'react-dom/test-utils';
 import Profile from '../../pages/profile';
 import UserContext from '../../context/user';
 import FirebaseContext from '../../context/firebase';
+import * as ROUTES from '../../constants/routes';
 import {
   isUserFollowingProfile,
   getUserByUsername,
   getUserPhotosByUsername
 } from '../../services/firebase';
-import userFixture from '../../fixtures/logged-in-user';
-import photosFixture from '../../fixtures/timeline-photos';
-import suggestedProfilesFixture from '../../fixtures/suggested-profiles';
-import profileThatIsFollowedByTheLoggedInUser from '../../fixtures/profile-followed-by-logged-in-user';
-import profileThatIsNotFollowedByTheLoggedInUser from '../../fixtures/profile-not-followed-by-logged-in-user';
 import useUser from '../../hooks/use-user';
-import * as ROUTES from '../../constants/routes';
+import userFixture from '../../fixtures/logged-in-user';
+// import suggestedProfilesFixture from '../../fixtures/suggested-profiles';
+import profileThatIsFollowedByLoggedInUserFixture from '../../fixtures/profile-followed-by-logged-in-user';
+import profileThatIsNotFollowedByLoggedInUserFixture from '../../fixtures/profile-not-followed-by-logged-in-user';
+import photosFixture from '../../fixtures/timeline-photos';
 
 const mockHistoryPush = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
-  useParams: () => ({ username: 'peter' }),
+  useParams: () => ({ username: 'jeremy' }),
   useHistory: () => ({
     push: mockHistoryPush
   })
@@ -41,7 +41,7 @@ describe('<Profile />', () => {
       getUserPhotosByUsername.mockImplementation(() => photosFixture);
       useUser.mockImplementation(() => ({ user: userFixture }));
 
-      const { getByText, getByTitle, getAllByTitle } = render(
+      const { getByText, getByTitle } = render(
         <Router>
           <FirebaseContext.Provider
             value={{
@@ -55,8 +55,8 @@ describe('<Profile />', () => {
             <UserContext.Provider
               value={{
                 user: {
-                  uid: '3',
-                  displayName: 'peter'
+                  uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                  displayName: 'jeremy'
                 }
               }}
             >
@@ -69,10 +69,11 @@ describe('<Profile />', () => {
       await waitFor(() => {
         expect(mockHistoryPush).not.toHaveBeenCalled();
         expect(mockHistoryPush).not.toHaveBeenCalledWith(ROUTES.NOT_FOUND);
-        expect(getUserByUsername).toHaveBeenCalledWith('peter');
-        expect(getAllByTitle('Sign Out')).toBeTruthy();
-        // expect(getByText('peter')).toBeTruthy();
-        // expect(getByText('Peter McGroof')).toBeTruthy();
+        expect(getUserByUsername).toHaveBeenCalled();
+        expect(getUserByUsername).toHaveBeenCalledWith('jeremy');
+        expect(getByTitle('Sign Out')).toBeTruthy();
+        expect(getByText('jeremy')).toBeTruthy();
+        expect(getByText('Jeremy Rice')).toBeTruthy();
       });
     });
   });
