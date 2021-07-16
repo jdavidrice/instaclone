@@ -159,55 +159,55 @@ describe('<Dashboard />', () => {
     });
   });
 
-  // it('renders the dashboard with a user profile and has no suggested profile', async () => {
-  //   await act(async () => {
-  //     getPhotos.mockImplementation(() => photosFixture);
-  //     getSuggestedProfiles.mockImplementation(() => []);
-  //     useUser.mockImplementation(() => ({ user: userFixture }));
+  it('renders the dashboard with a user profile and has no suggested profile', async () => {
+    await act(async () => {
+      getPhotos.mockImplementation(() => photosFixture);
+      getSuggestedProfiles.mockImplementation(() => []);
+      useUser.mockImplementation(() => ({ user: userFixture }));
 
-  //     const { queryByText } = render(
-  //       <Router>
-  //         <FirebaseContext.Provider
-  //           value={{
-  //             firebase: {
-  //               firestore: jest.fn(() => ({
-  //                 collection: jest.fn(() => ({
-  //                   doc: jest.fn(() => ({
-  //                     update: jest.fn(() => Promise.resolve('User added'))
-  //                   }))
-  //                 }))
-  //               }))
-  //             },
-  //             FieldValue: {
-  //               arrayUnion: jest.fn(),
-  //               arrayRemove: jest.fn()
-  //             }
-  //           }}
-  //         >
-  //           <UserContext.Provider
-  //             value={{
-  //               user: {
-  //                 uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
-  //                 displayName: 'jeremy'
-  //               }
-  //             }}
-  //           >
-  //             <LoggedInUserContext.Provider value={{ user: userFixture }}>
-  //               <Dashboard
-  //                 user={{
-  //                   uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
-  //                   displayName: 'jeremy'
-  //                 }}
-  //               />
-  //             </LoggedInUserContext.Provider>
-  //           </UserContext.Provider>
-  //         </FirebaseContext.Provider>
-  //       </Router>
-  //     );
+      const { queryByText } = render(
+        <Router>
+          <FirebaseContext.Provider
+            value={{
+              firebase: {
+                firestore: jest.fn(() => ({
+                  collection: jest.fn(() => ({
+                    doc: jest.fn(() => ({
+                      update: jest.fn(() => Promise.resolve('User added'))
+                    }))
+                  }))
+                }))
+              },
+              FieldValue: {
+                arrayUnion: jest.fn(),
+                arrayRemove: jest.fn()
+              }
+            }}
+          >
+            <UserContext.Provider
+              value={{
+                user: {
+                  uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                  displayName: 'jeremy'
+                }
+              }}
+            >
+              <LoggedInUserContext.Provider value={{ user: userFixture }}>
+                <Dashboard
+                  user={{
+                    uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                    displayName: 'jeremy'
+                  }}
+                />
+              </LoggedInUserContext.Provider>
+            </UserContext.Provider>
+          </FirebaseContext.Provider>
+        </Router>
+      );
 
-  //     await waitFor(() => {
-  //       expect(queryByText('Suggestions for you')).toBeFalsy();
-  //     });
-  //   });
-  // });
+      await waitFor(() => {
+        expect(queryByText('Suggestions for you')).toBeFalsy();
+      });
+    });
+  });
 });
