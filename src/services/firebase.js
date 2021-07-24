@@ -7,7 +7,6 @@ export async function doesUsernameExist(username) {
     .where('username', '==', username)
     .get();
 
-  // return result.docs.map((user) => user.data().length > 0);
   return result.docs.length > 0;
 }
 
@@ -33,14 +32,6 @@ export async function getUserByUserId(userId) {
   }));
   return user;
 }
-
-// export async function getSuggestedProfiles(userId, following) {
-//   const result = await firebase.firestore().collection('users').limit(10).get();
-
-//   return result.docs
-//     .map((user) => ({ ...user.data(), docId: user.id }))
-//     .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
-// }
 
 // check all conditions before limit results
 export async function getSuggestedProfiles(userId, following) {
@@ -118,20 +109,6 @@ export async function getPhotos(userId, following) {
   );
 
   return photosWithUserDetails;
-}
-
-export async function getUserPhotosByUsername(username) {
-  const [user] = await getUserByUsername(username);
-  const result = await firebase
-    .firestore()
-    .collection('photos')
-    .where('userId', '==', user.userId)
-    .get();
-
-  return result.docs.map((item) => ({
-    ...item.data(),
-    docId: item.id
-  }));
 }
 
 export async function getUserPhotosByUserId(userId) {
