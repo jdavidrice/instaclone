@@ -8,7 +8,7 @@ export default function Profile({ user }) {
   const reducer = (state, newState) => ({ ...state, ...newState });
   const initialState = {
     profile: {},
-    photosCollection: [],
+    photosCollection: null,
     followerCount: 0
   };
 
@@ -19,7 +19,7 @@ export default function Profile({ user }) {
 
   useEffect(() => {
     async function getProfileInfoAndPhotos() {
-      const photos = await getUserPhotosByUserId(user.username);
+      const photos = await getUserPhotosByUserId(user.userId);
 
       dispatch({ profile: user, photosCollection: photos, followerCount: user.followers.length });
     }
