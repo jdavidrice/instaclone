@@ -3,7 +3,7 @@ describe('Login', () => {
   beforeEach(() => {
     cy.visit(`${Cypress.config().baseUrl}/login`);
     cy.get('body').within(() => {
-      cy.get('div').should('contain.text', `Don't have an account?`);
+      cy.get('div').should('contain.text', `Don't have an account? Sign Up`);
     });
     cy.get('div')
       .find('img')
@@ -20,7 +20,8 @@ describe('Login', () => {
         .type('jdavidrice@gmail.com');
 
       cy.get('input:last').should('have.attr', 'placeholder', 'Password').type('test1234');
-      cy.get('button').should('contain.text', 'Login').click();
+      cy.get('button').should('contain.text', 'Login');
+      cy.get('button').click();
     });
 
     cy.wait(5000);
@@ -42,6 +43,18 @@ describe('Login', () => {
         'contain.text',
         'The password is invalid or the user does not have a password.'
       );
+    });
+  });
+
+  it('navigates to the sign up page and back again', () => {
+    cy.get('[data-testid="sign-up"]').click();
+    cy.get('body').within(() => {
+      cy.get('div').should('contain.text', 'Have an account? Login');
+    });
+
+    cy.get('[data-testid="login"]').click();
+    cy.get('body').within(() => {
+      cy.get('div').should('contain.text', `Don't have an account? Sign Up`);
     });
   });
 });

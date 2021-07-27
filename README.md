@@ -26,6 +26,7 @@ The app has multiple pages: login, sign up, dashboard (to view/like/comment on p
 *   @testing-library/react: ^11.1.0
 *   @testing-library/user-event: ^12.1.10
 *   autoprefixer: ^10.2.5
+*   cypress: ^8.0.0
 *   date-fns: ^2.21.3
 *   firebase: ^8.5.0
 *   prop-types: ^15.7.2
@@ -61,6 +62,8 @@ This application uses a .env file to store environment variables. After you fork
 
 ***Testing***
 This application incorporates the [Jest](https://jestjs.io/) JavaScript testing framework. To run the built-in unit tests, enter "npm test" into the console. 
+
+This application also incorporates [Cypress](https://www.cypress.io/) End-to-End testing. To run the built-in Cypress tests, enter "npm run e2e" into the console. Wait for the Cypress control panel to open, then click on each test to see it run in the browser. 
 
 ## Image of the App   
   
