@@ -47,6 +47,7 @@ describe('Dashboard', () => {
   });
 
   it('logs the user in and likes a photo', () => {
+    cy.wait(3000);
     cy.get('[data-testid="like-photo-8MlXApDlrVzYqQEJgDXv"]').click();
   });
 
