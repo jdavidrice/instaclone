@@ -17,7 +17,8 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
     "tailwindcss": "^2.2.7",
-    "web-vitals": "^1.0.1"
+    "web-vitals": "^1.0.1",
+    "xvfb": "^0.4.0"
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
