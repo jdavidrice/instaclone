@@ -1,6 +1,8 @@
 import LogRocket from 'logrocket';
 
-LogRocket.identify('R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2', {
+LogRocket.init('l6icgt/instaclone');
+
+LogRocket.identify('jdavidrice@gmail.com', {
   name: 'Jeremy Rice',
   email: 'jdavidrice@gmail.com'
 });
