@@ -65,6 +65,9 @@ This application incorporates the [Jest](https://jestjs.io/) JavaScript testing 
 
 This application also incorporates [Cypress](https://www.cypress.io/) End-to-End testing. To run the built-in Cypress tests, enter "npm run e2e" into the console. Wait for the Cypress control panel to open, then click on each test to see it run in the browser. 
 
+***LogRocket***
+[LogRocket](https://logrocket.com/) integration is currently on its own branch. It is not merged into main and therefore is not part of the deployed app. To allow LogRocket to work properly from localhost, use [ngrok](https://ngrok.com/). After `npm start`, enter `./ngrok http 3000` into the console and click on the displayed https address to use the site. LogRocket will record session data correctly, with images, using this technique. 
+
 ## Image of the App   
   
 ![Instaclone](./public/images/instaclone.png)
