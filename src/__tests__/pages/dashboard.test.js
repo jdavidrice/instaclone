@@ -16,6 +16,7 @@ import suggestedProfilesFixture from '../../fixtures/suggested-profiles';
 const mockHistoryPush = jest.fn();
 jest.mock('react-router-dom', () => ({
   ...jest.requireActual('react-router-dom'),
+  useParams: () => ({ username: 'peter' }),
   useHistory: () => ({
     push: mockHistoryPush
   })
@@ -29,7 +30,91 @@ describe('<Dashboard />', () => {
     jest.clearAllMocks();
   });
 
-  it('renders the dashboard with a user profile and follows a user from the suggested profile sidebar', async () => {
+  it('renders the dashboard with a user profile and follows a user from the suggested profile', async () => {
+    await act(async () => {
+      getPhotos.mockImplementation(() => photosFixture);
+      getSuggestedProfiles.mockImplementation(() => suggestedProfilesFixture);
+      useUser.mockImplementation(() => ({ user: userFixture }));
+
+      const { getByText, getByAltText, getByTitle, getAllByText, getAllByAltText, getByTestId } =
+        render(
+          <Router>
+            <FirebaseContext.Provider
+              value={{
+                firebase: {
+                  firestore: jest.fn(() => ({
+                    collection: jest.fn(() => ({
+                      doc: jest.fn(() => ({
+                        update: jest.fn(() => Promise.resolve('User added'))
+                      }))
+                    }))
+                  }))
+                },
+                FieldValue: {
+                  arrayUnion: jest.fn(),
+                  arrayRemove: jest.fn()
+                }
+              }}
+            >
+              <UserContext.Provider
+                value={{
+                  user: {
+                    uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                    displayName: 'jeremy'
+                  }
+                }}
+              >
+                <LoggedInUserContext.Provider value={{ user: userFixture }}>
+                  <Dashboard
+                    user={{
+                      uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                      displayName: 'jeremy'
+                    }}
+                  />
+                </LoggedInUserContext.Provider>
+              </UserContext.Provider>
+            </FirebaseContext.Provider>
+          </Router>
+        );
+
+      await waitFor(() => {
+        expect(document.title).toEqual('Instaclone');
+        expect(getByTitle('Sign Out')).toBeTruthy();
+        expect(getAllByText('brendan')).toBeTruthy();
+        expect(getAllByAltText('Instaclone')).toBeTruthy(); // instaclone logo
+        expect(getByAltText('jeremy profile')).toBeTruthy();
+        expect(getAllByText('Saint George and the Dragon')).toBeTruthy(); // caption for the img
+        expect(getByText('Suggestions for you')).toBeTruthy(); // suggestions exist
+
+        fireEvent.click(getByText('Follow'));
+        fireEvent.click(getByTestId('like-photo-XcrunAyNNmzEysTbrnaJ'));
+        fireEvent.keyDown(getByTestId('like-photo-XcrunAyNNmzEysTbrnaJ'), {
+          key: 'Enter'
+        });
+        // toggle like
+        fireEvent.click(getByTestId('focus-input-8MlXApDlrVzYqQEJgDXv'));
+
+        // submit photo with valid string length
+        fireEvent.change(getByTestId('add-comment-8MlXApDlrVzYqQEJgDXv'), {
+          target: { value: 'Great photo!' }
+        });
+        fireEvent.submit(getByTestId('add-comment-submit-8MlXApDlrVzYqQEJgDXv'));
+
+        // submit photo with invalid string length
+        fireEvent.change(getByTestId('add-comment-8MlXApDlrVzYqQEJgDXv'), {
+          target: { value: '' }
+        });
+
+        // toggle focus
+        fireEvent.keyDown(getByTestId('focus-input-8MlXApDlrVzYqQEJgDXv'), {
+          key: 'Enter'
+        });
+        fireEvent.submit(getByTestId('add-comment-submit-8MlXApDlrVzYqQEJgDXv'));
+      });
+    });
+  });
+
+  it('renders the dashboard with a user object of undefined to trigger fallbacks', async () => {
     await act(async () => {
       getPhotos.mockImplementation(() => photosFixture);
       getSuggestedProfiles.mockImplementation(() => suggestedProfilesFixture);
@@ -39,19 +124,66 @@ describe('<Dashboard />', () => {
         firestore: jest.fn(() => ({
           collection: jest.fn(() => ({
             doc: jest.fn(() => ({
-              update: jest.fn(() => Promise.resolve('User added'))
+              update: jest.fn(() => Promise.resolve({}))
             }))
           }))
         }))
       };
-      const fieldValues = {
-        arrayUnion: jest.fn(),
-        arrayRemove: jest.fn()
-      };
-
-      const { getByText, getByTestId, getByTitle, getAllByText, getByAltText } = render(
+      const { getByText, queryByText } = render(
         <Router>
-          <FirebaseContext.Provider value={{ firebase, fieldValues }}>
+          <FirebaseContext.Provider value={{ firebase }}>
+            <UserContext.Provider
+              value={{
+                user: {
+                  uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                  displayName: 'jeremy'
+                }
+              }}
+            >
+              <LoggedInUserContext.Provider value={{ user: userFixture }}>
+                <Dashboard
+                  user={{
+                    uid: 'R4VG4Q2TxpNJmz9oEkcnZqV8YPQ2',
+                    displayName: 'jeremy'
+                  }}
+                />
+              </LoggedInUserContext.Provider>
+            </UserContext.Provider>
+          </FirebaseContext.Provider>
+        </Router>
+      );
+
+      // expect(getByText('Login')).toBeTruthy();
+      // expect(getByText('Sign Up')).toBeTruthy();
+      expect(queryByText('Suggestions for you')).toBeFalsy();
+    });
+  });
+
+  it('renders the dashboard with a user profile and has no suggested profile', async () => {
+    await act(async () => {
+      getPhotos.mockImplementation(() => photosFixture);
+      getSuggestedProfiles.mockImplementation(() => []);
+      useUser.mockImplementation(() => ({ user: userFixture }));
+
+      const { queryByText } = render(
+        <Router>
+          <FirebaseContext.Provider
+            value={{
+              firebase: {
+                firestore: jest.fn(() => ({
+                  collection: jest.fn(() => ({
+                    doc: jest.fn(() => ({
+                      update: jest.fn(() => Promise.resolve('User added'))
+                    }))
+                  }))
+                }))
+              },
+              FieldValue: {
+                arrayUnion: jest.fn(),
+                arrayRemove: jest.fn()
+              }
+            }}
+          >
             <UserContext.Provider
               value={{
                 user: {
@@ -74,24 +206,7 @@ describe('<Dashboard />', () => {
       );
 
       await waitFor(() => {
-        expect(document.title).toEqual('Instaclone');
-        expect(getByTitle('Sign Out')).toBeTruthy();
-        expect(getAllByText('brendan')).toBeTruthy();
-        expect(getByAltText('Instaclone')).toBeTruthy();
-        expect(getByAltText('jeremy profile')).toBeTruthy();
-        expect(getAllByText('Saint George and the Dragon')).toBeTruthy();
-        expect(getByText('Suggestions for you')).toBeTruthy();
-
-        // fireEvent.click(getByText('Follow'));
-        // fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'));
-        // fireEvent.click(getByTestId('like-photo-494LKmaF03bUcYZ4xhNu'), {
-        //   key: 'Enter'
-        // });
-        // fireEvent.click(getByTestId('focus-input-494LKmaF03bUcYZ4xhNu'));
-        // fireEvent.change(getByTestId('add-comment-MYv4fLT7DZpuFAkcZB'), {
-        //   target: { value: 'Nice pic!' }
-        // });
-        // fireEvent.submit(getByTestId('add-comment-submit-MYv4fLT7DZpuFAkcZ'));
+        expect(queryByText('Suggestions for you')).toBeFalsy();
       });
     });
   });

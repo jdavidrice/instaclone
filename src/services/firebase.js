@@ -7,7 +7,7 @@ export async function doesUsernameExist(username) {
     .where('username', '==', username)
     .get();
 
-  return result.docs.map((user) => user.data().length > 0);
+  return result.docs.length > 0;
 }
 
 export async function getUserByUsername(username) {
@@ -26,7 +26,6 @@ export async function getUserByUsername(username) {
 // get user from the firestore where userId === userId (passsed from auth)
 export async function getUserByUserId(userId) {
   const result = await firebase.firestore().collection('users').where('userId', '==', userId).get();
-
   const user = result.docs.map((item) => ({
     ...item.data(),
     docId: item.id
@@ -34,12 +33,23 @@ export async function getUserByUserId(userId) {
   return user;
 }
 
+// check all conditions before limit results
 export async function getSuggestedProfiles(userId, following) {
-  const result = await firebase.firestore().collection('users').limit(10).get();
+  let query = firebase.firestore().collection('users');
 
-  return result.docs
-    .map((user) => ({ ...user.data(), docId: user.id }))
-    .filter((profile) => profile.userId !== userId && !following.includes(profile.userId));
+  if (following.length > 0) {
+    query = query.where('userId', 'not-in', [...following, userId]);
+  } else {
+    query = query.where('userId', '!=', userId);
+  }
+  const result = await query.limit(10).get();
+
+  const profiles = result.docs.map((user) => ({
+    ...user.data(),
+    docId: user.id
+  }));
+
+  return profiles;
 }
 
 export async function updateLoggedInUserFollowing(
@@ -101,20 +111,18 @@ export async function getPhotos(userId, following) {
   return photosWithUserDetails;
 }
 
-// export async function getUserIdByUsername(username) {}
-
-export async function getUserPhotosByUsername(username) {
-  const [user] = await getUserByUsername(username);
+export async function getUserPhotosByUserId(userId) {
   const result = await firebase
     .firestore()
     .collection('photos')
-    .where('userId', '==', user.userId)
+    .where('userId', '==', userId)
     .get();
 
-  return result.docs.map((item) => ({
-    ...item.data(),
-    docId: item.id
+  const photos = result.docs.map((photo) => ({
+    ...photo.data(),
+    docId: photo.id
   }));
+  return photos;
 }
 
 export async function isUserFollowingProfile(loggedInUserUsername, profileUserId) {

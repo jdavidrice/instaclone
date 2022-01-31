@@ -63,19 +63,27 @@ export default function SignUp() {
   }, []);
 
   return (
-    <div className="container flex mx-auto max-w-screen-md items-center h-screen">
-      <div className="flex w-3/5">
-        <img src="/images/iphone-with-profile.jpg" alt="iPhone with Instaclone app" />
+    <div className="container flex mx-auto max-w-screen-md items-center h-screen px-4 lg:px-0">
+      <div className="hidden lg:flex w-full lg:w-3/5">
+        <img
+          src="/images/iphone-with-profile.png"
+          alt="iPhone with Instaclone app"
+          className="object-scale-down"
+        />
       </div>
-      <div className="flex flex-col w-2/5">
+      <div className="flex flex-col w-full lg:w-2/5 justify-center h-full max-w-md m-auto">
         <div className="flex flex-col items-center bg-white p-4 rounded border border-gray-primary mb-4">
           <h1 className="flex justify-center w-full">
             <img src="/images/logo.png" alt="Instaclone" className="mt-2 w-6/12 mb-4" />
           </h1>
 
-          {error && <p className="mb-4 text-xs text-red-primary">{error}</p>}
+          {error && (
+            <p className="mb-4 text-xs text-red-primary" data-testid="error">
+              {error}
+            </p>
+          )}
 
-          <form onSubmit={handleSignUp} method="POST">
+          <form onSubmit={handleSignUp} method="POST" data-testid="sign-up">
             <input
               aria-label="Enter your username"
               type="text"
@@ -121,7 +129,7 @@ export default function SignUp() {
         <div className="flex justify-center items-center flex-col w-full bg-white p-4  rounded border border-gray-primary">
           <p className="text-sm">
             Have an account?{` `}
-            <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium">
+            <Link to={ROUTES.LOGIN} className="font-bold text-blue-medium" data-testid="login">
               Login
             </Link>
           </p>
